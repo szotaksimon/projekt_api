@@ -95,7 +95,6 @@ return function(Slim\App $app){
         $input = json_decode($request->getBody(), true);
         //Bemenet validáció!! ˇ
         $user = UserData::create($input);
-        var_dump($user);
 
         $user->save();
 
