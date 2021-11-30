@@ -2,6 +2,7 @@
 
 use Projekt\Api\UserTodo;
 use Projekt\Api\UserData;
+use Projekt\Api\UserXp;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -182,4 +183,64 @@ return function(Slim\App $app){
         ->withHeader('Content-type', 'application/json')
         ->withStatus(200);
     });
+
+
+    #USER XP RÉSZ
+    $app->get('/users_xp', function(Request $request, Response $response, array $args){
+        $usersXp = UserXp::all();
+        $kimenet = $usersXp->toJson();
+
+        $response -> withHeader('Content-type', 'application/json')->getbody()->write($kimenet);
+        return $response;
+    });
+
+    $app->post('/users_xp',function(Request $request,Response $response){
+        $input=json_decode($request-> getBody(),true);
+        //vaidáció!
+        $userXp=UserXp::create($input);
+    
+        $userXp->save();
+
+        $kimenet=$userXp->toJson();
+
+        $response->getBody()->write($kimenet);
+        return $response
+            ->withStatus(201)
+            ->withHeader('Content-type','application/json');
+    });
+
+    /*
+    új felhasználó esetén a neki megfelelő ID-val rétrahozni egy új sort a postnál és az xp-t 0-ra állítani
+    */ 
+
+
+    $app->put('/user_xp/{id}', function(Request $request, Response $response, array $args){
+        if (!is_numeric($args['id']) || $args['id'] <= 0){
+            $ki = json_encode(['error' => 'Az ID pozitív egész szám kell legyen!']);
+            $response->getBody()->write($ki);
+            return $response
+                ->withHeader('Content-type', 'application/json')
+                ->withStatus(400);
+        }
+
+        $user = UserXp::find($args['id']);
+        if($user === null){
+            $ki = json_encode(['error' => 'Nincs ilyen ID-jű user']);
+            $response->getBody()->write($ki);
+            return $response
+                ->withHeader('Content-type', 'application/json')
+                ->withStatus(404);
+        }
+        $input = json_decode($request->getBody(), true);
+        $user->fill($input);
+        $user->save();
+        $response->getBody()->write($user->toJson());
+        return $response
+        ->withHeader('Content-type', 'application/json')
+        ->withStatus(200);
+    });
+
+
+
+
 };
