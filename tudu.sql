@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Gép: 127.0.0.1
--- Létrehozás ideje: 2021. Nov 30. 16:56
--- Kiszolgáló verziója: 10.4.21-MariaDB
--- PHP verzió: 8.0.12
+-- Host: 127.0.0.1
+-- Generation Time: Dec 01, 2021 at 11:56 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Adatbázis: `tudu`
+-- Database: `tudu`
 --
 CREATE DATABASE IF NOT EXISTS `tudu` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `tudu`;
@@ -26,7 +26,7 @@ USE `tudu`;
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `user_data`
+-- Table structure for table `user_data`
 --
 
 CREATE TABLE `user_data` (
@@ -40,7 +40,7 @@ CREATE TABLE `user_data` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- A tábla adatainak kiíratása `user_data`
+-- Dumping data for table `user_data`
 --
 
 INSERT INTO `user_data` (`user_id`, `user_first`, `user_last`, `user_register`, `username`, `user_pass`, `pass_reminder`) VALUES
@@ -51,7 +51,25 @@ INSERT INTO `user_data` (`user_id`, `user_first`, `user_last`, `user_register`, 
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `user_todo`
+-- Table structure for table `user_icon`
+--
+
+CREATE TABLE `user_icon` (
+  `user_id` int(11) NOT NULL,
+  `icon_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_icon`
+--
+
+INSERT INTO `user_icon` (`user_id`, `icon_name`) VALUES
+(1, 'testIcon');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_todo`
 --
 
 CREATE TABLE `user_todo` (
@@ -61,17 +79,17 @@ CREATE TABLE `user_todo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- A tábla adatainak kiíratása `user_todo`
+-- Dumping data for table `user_todo`
 --
 
 INSERT INTO `user_todo` (`user_id`, `user_todo`, `todo_date`) VALUES
 (1, 'Letesztelni a programot.', '2021-11-30 12:21:42'),
-(2, 'Elso post', '2021-11-30 00:00:00');
+(2, 'Elso post put test', '2021-11-30 00:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `user_xp`
+-- Table structure for table `user_xp`
 --
 
 CREATE TABLE `user_xp` (
@@ -80,57 +98,69 @@ CREATE TABLE `user_xp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- A tábla adatainak kiíratása `user_xp`
+-- Dumping data for table `user_xp`
 --
 
 INSERT INTO `user_xp` (`user_id`, `user_exp`) VALUES
 (1, 223),
 (2, 345),
-(3, 111111);
+(3, 1);
 
 --
--- Indexek a kiírt táblákhoz
+-- Indexes for dumped tables
 --
 
 --
--- A tábla indexei `user_data`
+-- Indexes for table `user_data`
 --
 ALTER TABLE `user_data`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- A tábla indexei `user_todo`
+-- Indexes for table `user_icon`
+--
+ALTER TABLE `user_icon`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- Indexes for table `user_todo`
 --
 ALTER TABLE `user_todo`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- A tábla indexei `user_xp`
+-- Indexes for table `user_xp`
 --
 ALTER TABLE `user_xp`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- A kiírt táblák AUTO_INCREMENT értéke
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT a táblához `user_data`
+-- AUTO_INCREMENT for table `user_data`
 --
 ALTER TABLE `user_data`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT a táblához `user_todo`
+-- AUTO_INCREMENT for table `user_icon`
+--
+ALTER TABLE `user_icon`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `user_todo`
 --
 ALTER TABLE `user_todo`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT a táblához `user_xp`
+-- AUTO_INCREMENT for table `user_xp`
 --
 ALTER TABLE `user_xp`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
